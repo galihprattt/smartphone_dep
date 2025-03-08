@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +27,8 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('profile.upd
 Route::get('history', [HistoryController::class, 'index']);
 Route::get('history/{id}', [HistoryController::class, 'detail']);
 Route::post('/upload-bukti-transfer/{id}', [PesanController::class, 'uploadBuktiTransfer'])->name('upload.bukti.transfer');
+
+
+
+
+Route::resource('products', ProductController::class);

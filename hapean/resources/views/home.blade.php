@@ -9,30 +9,43 @@
         </div>
     </div>
 
-    <!-- Daftar Barang -->
+    <!-- Tombol Tambah Produk -->
+    <div class="row mb-4">
+        <div class="col-md-12 text-end">
+            <a href="{{ route('products.create') }}" class="btn btn-success">
+                <i class="fa-solid fa-plus"></i> Tambah Produk
+            </a>
+        </div>
+    </div>
+
+    <!-- Daftar Produk -->
     <div class="row">
-        @foreach ($barangs as $barang)
+        @foreach ($products as $product)
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 shadow-sm border-0 rounded">
-                    <img src="{{ asset('uploads/' . $barang->image) }}" class="card-img-top img-fluid rounded-top" alt="{{ $barang->nama_barang }}">
+                    <img src="{{ asset($product->image ?? 'uploads/default-image.jpg') }}" class="card-img-top img-fluid rounded-top" alt="{{ $product->name }}">
                     <div class="card-body">
-                        <h5 class="card-title text-primary fw-bold">{{ $barang->nama_barang }}</h5>
+                        <h5 class="card-title text-primary fw-bold">{{ $product->name }}</h5>
                         <p class="card-text text-muted">
-                            <strong>Harga :</strong> Rp. {{ number_format($barang->harga) }}<br>
-                            <strong>Stok :</strong> {{ $barang->stok }} <br>
+                            <strong>Harga :</strong> Rp. {{ number_format($product->price, 0, ',', '.') }}<br>
+                            <strong>Kategori :</strong> {{ $product->category ?? '-' }} <br>
                         </p>
                         <hr>
-                        <p class="card-text text-secondary">{{ $barang->keterangan }}</p>
-                        <a href="{{ url('pesan/' . $barang->id) }}" class="btn btn-primary w-100"> 
-                            <i class="fa-solid fa-cart-plus"></i> PESAN
+                        <p class="card-text text-secondary">{{ $product->description }}</p>
+                        <a href="{{ url('products/' . $product->id) }}" class="btn btn-primary w-100"> 
+                            <i class="fa-solid fa-cart-plus"></i> Detail
                         </a>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-</div>
 
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $products->links() }}
+    </div>
+</div>
 
 <style>
     .card {
